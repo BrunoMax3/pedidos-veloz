@@ -1,0 +1,16 @@
+# Configuração mínima do Prometheus para coletar métricas dos serviços.
+global:
+  scrape_interval: 15s
+
+scrape_configs:
+  - job_name: 'pedidos-veloz-services'
+    metrics_path: /metrics
+    static_configs:
+      - targets:
+          - 'api-gateway:8000'
+          - 'orders:8000'
+          - 'payments:8000'
+          - 'inventory:8000'
+
+  # Em Kubernetes, troque static_configs por kubernetes_sd_configs usando
+  # as annotations prometheus.io/scrape já presentes nos Deployments.

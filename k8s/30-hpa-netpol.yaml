@@ -1,0 +1,57 @@
+# Escalabilidade automática horizontal (HPA) baseada em CPU.
+# Foco nos serviços do caminho crítico de pico de tráfego: orders e gateway.
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: orders-hpa
+  namespace: pedidos-veloz
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: orders
+  minReplicas: 3
+  maxReplicas: 15
+  metrics:
+    - type: Resource
+      resource:
+        name: cpu
+        target:
+          type: Utilization
+          averageUtilization: 65
+  behavior:
+    scaleUp:
+      stabilizationWindowSeconds: 30   # sobe rápido em pico
+    scaleDown:
+      stabilizationWindowSeconds: 300  # desce devagar (evita flapping)
+---
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: api-gateway-hpa
+  namespace: pedidos-veloz
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: api-gateway
+  minReplicas: 2
+  maxReplicas: 10
+  metrics:
+    - type: Resource
+      resource:
+        name: cpu
+        target:
+          type: Utilization
+          averageUtilization: 70
+---
+# NetworkPolicy: por padrão nega entrada; só o gateway recebe tráfego externo
+# e só os serviços internos conversam entre si (defesa em profundidade).
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: default-deny-ingress
+  namespace: pedidos-veloz
+spec:
+  podSelector: {}
+  policyTypes: [Ingress]
