@@ -41,7 +41,7 @@ story.append(header_band(
     "Projeto &ldquo;Pedidos Veloz&rdquo; — implementação fim a fim",
     ["Caso: Loja Veloz &nbsp;|&nbsp; Stack: Python/FastAPI, Docker, Kubernetes, GitHub Actions",
      "Aluno: Bruno Maximino dos Reis",
-     "Vídeo pitch: [INSERIR LINK DO YOUTUBE]"],
+     "Vídeo pitch: https://youtu.be/2fcHbnvvBjw"],
     S))
 story.append(Spacer(1, 10))
 

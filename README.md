@@ -4,7 +4,7 @@ Solução fim a fim (do dev ao prod) para a **Loja Veloz**: ambiente local
 reproduzível com Docker Compose, conteinerização segura, orquestração em
 Kubernetes, pipeline de CI/CD, observabilidade e escalabilidade automática.
 
-> 🎥 **Vídeo pitch (até 4 min):** [INSIRA O LINK DO YOUTUBE AQUI]
+> 🎥 **Vídeo pitch (até 4 min):** [https://youtu.be/2fcHbnvvBjw](https://youtu.be/2fcHbnvvBjw)
 
 ---
 
